@@ -1,0 +1,86 @@
+group_lamp:
+    view: yes
+    name: lampes
+    entities:
+     - light.lamp_cuisine
+     - light.lamp_chambre
+     - light.lamp_salon
+     - light.lamp_sejour
+     - light.lamp_flottant
+
+group_switch:
+    view: yes
+    name: relais
+    entities:
+     - switch.switch_cuisine
+     - switch.switch_chambre
+     - switch.switch_salon
+     - switch.switch_sejour
+     - switch.switch_flottant
+
+group_sensor:
+    name: capteurs
+    view: yes
+    entities:
+     - sensor.temperature_cuisine
+     - sensor.humidity_cuisine
+     - sensor.temperature_chambre
+     - sensor.humidity_chambre
+     - sensor.temperature_salon
+     - sensor.humidity_salon
+     - sensor.temperature_sejour
+     - sensor.humidity_sejour
+     - sensor.temperature_flottant
+     - sensor.humidity_flottant
+
+group_cuisine:
+    name: cuisine
+    view: yes
+    entities:
+     - light.lamp_cuisine
+     - switch.switch_cuisine
+     - sensor.temperature_cuisine
+     - sensor.humidity_cuisine
+
+group_chambre:
+    name: chambre
+    view: yes
+    entities:
+     - light.lamp_chambre
+     - switch.switch_chambre
+     - sensor.temperature_chambre
+     - sensor.humidity_chambre
+
+group_salon:
+    name: salon
+    view: yes
+    entities:
+     - light.lamp_salon
+     - switch.switch_salon
+     - sensor.temperature_salon
+     - sensor.humidity_salon
+
+group_sejour:
+    name: sejour
+    view: yes
+    entities:
+     - light.lamp_sejour
+     - switch.switch_sejour
+     - sensor.temperature_sejour
+     - sensor.humidity_sejour
+
+group_flottant:
+    name: flottant
+    view: yes
+    entities:
+     - light.lamp_flottant
+     - switch.switch_flottant
+     - sensor.temperature_flottant
+     - sensor.humidity_flottant
+
+internet_speed_group:
+  name: Internet Speed
+  entities:
+    - sensor.speedtest_download
+    - sensor.speedtest_ping
+    - sensor.speedtest_upload

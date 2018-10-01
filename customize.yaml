@@ -1,0 +1,48 @@
+sensor.speedtest_download:
+  friendly_name: Download Rate
+sensor.speedtest_ping:
+  friendly_name: Last Ping
+sensor.speedtest_upload:
+  friendly_name: Upload
+light.lamp_chambre:
+  friendly_name: Lampe chambre
+switch.switch_chambre:
+  friendly_name: Relais chambre
+light.lamp_salon:
+  friendly_name: Lampe salon
+switch.switch_salon:
+  friendly_name: Relais salon
+light.lamp_sejour:
+  friendly_name: Lampe sejour
+switch.switch_sejour:
+  friendly_name: Relais sejour
+light.lamp_cuisine:
+  friendly_name: Lampe cuisine
+switch.switch_cuisine:
+  friendly_name: Relais cuisine
+light.lamp_flottant:
+  friendly_name: Lampe flottant
+switch.switch_flottant:
+  friendly_name: Relais flottant
+# sensor.temperature_chambre:
+#   friendly_name: Temperature Chambre
+# sensor.temperature_salon:
+#   friendly_name: Temperature Salon
+# sensor.temperature_sejour:
+#   friendly_name: Temperature Sejour
+# sensor.temperature_cuisine:
+#   friendly_name: Temperature Cuisine
+# sensor.temperature_flottant:
+#   friendly_name: Temperature Flottant
+sensor.humidity_chambre:
+  friendly_name: Humidité Chambre
+sensor.humidity_salon:
+  friendly_name: Humidité Salon
+sensor.humidity_sejour:
+  friendly_name: Humidité Séjour
+sensor.humidity_cuisine:
+  friendly_name: Humidité Cuisine
+sensor.humidity_flottant:
+  friendly_name: Humidité Flottant
+sensor.dark_sky_apparent_temperature:
+  icon: mdi:thermometer

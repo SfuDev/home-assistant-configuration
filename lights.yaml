@@ -1,0 +1,46 @@
+#
+# esp8266 Chinese bulb with AiLight firmware
+#
+
+
+- platform: mqtt
+  name: 'lamp_cuisine'
+  state_topic: 'switches/1/relay'
+  effect_command_topic: 'switches/1/relay'
+  effect_state_topic: 'switches/1/relay'
+  command_topic: 'switches/1/relay/set'
+  payload_off: "0"
+  payload_on: "1"
+
+- platform: mqtt
+  name: 'lamp_chambre'
+  state_topic: 'switches/2/relay'
+  command_topic: 'switches/2/relay/set'
+  color_temp: true
+  brightness: true
+
+- platform: mqtt
+  name: 'lamp_salon'
+  effect_command_topic: 'switches/WEMOS_8/command'
+  effect_state_topic: 'switches/WEMOS_8/status'
+  state_topic: "switches/WEMOS_8/status"
+  command_topic: "switches/WEMOS_8/command"
+  color_temp: true
+  brightness: true
+
+- platform: mqtt
+  name: 'lamp_sejour'
+  state_topic: 'switches/4/relay'
+  command_topic: 'switches/4/relay/set'
+  color_temp: true
+  brightness: true
+
+- platform: mqtt
+  name: 'lamp_flottant'
+  effect_command_topic: 'switches/WEMOS_10/command'
+  effect_state_topic: 'switches/WEMOS_10/status'
+  state_topic: "switches/WEMOS_10/status"
+  command_topic: "switches/WEMOS_10/command"
+  color_temp: true
+  brightness: true
+

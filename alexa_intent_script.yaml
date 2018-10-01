@@ -1,0 +1,34 @@
+capteur_temperature_humidite:
+ speech:
+  type: plain
+  text: 'La temperature dans {{room}} est {{ states("sensor.temperature_chambre") }} degrés'
+
+Temperature:
+ speech:
+  type: plain
+  text: 'La temperature est {{ states("sensor.temperature_chambre") }}'
+GetTemperature:
+ speech:
+  type: plain
+  text: 'La temperature est {{ states("sensor.speedtest_ping")  }}'
+
+Ca_va:
+ speech:
+  type: plain
+  text: '{{ Script | replace(" ", "_") }} - executed'
+
+LocateIntent:
+ speech:
+  type: plain
+  text: 'Ca va {{User}}, merci' 
+
+PrinterStatusIntent:
+    speech:
+      type: plaintext
+      text: >
+        The printer is {{ states("sensor.octoprint_current_state") | lower }}
+        {% if is_state("binary_sensor.octoprint_printing", "on") %}
+          and the job is {{ states("sensor.octoprint_job_percentage") | round }} percent complete
+        {% else %}
+          and not currently printing
+        {% endif %}.

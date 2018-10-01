@@ -1,0 +1,49 @@
+- platform: mqtt
+  name: "switch_cuisine"
+  state_topic: "switches/WEMOS_11/status"
+  command_topic: "switches/WEMOS_11/command"
+  payload_on: "1"
+  payload_off: "0"
+  qos: 0
+  retain: true
+  friendly_name: "switch cuisine"
+
+- platform: mqtt
+  name: "switch_chambre"
+  state_topic: "switches/WEMOS_12/status"
+  command_topic: "switches/WEMOS_12/command"
+  payload_on: "1"
+  payload_off: "0"
+  qos: 0
+  retain: true    
+  friendly_name: "switch chambre"
+
+- platform: mqtt
+  name: "switch_salon"
+  state_topic: "switches/WEMOS_13/status"
+  command_topic: "switches/WEMOS_13/command"
+  payload_on: "1"
+  payload_off: "0"
+  qos: 0
+  retain: true  # MQTT Sensors
+  friendly_name: "switch salon"
+
+- platform: mqtt
+  name: "switch_sejour"
+  state_topic: "switches/WEMOS_14/status"
+  command_topic: "switches/WEMOS_14/command"
+  payload_on: "1"
+  payload_off: "0"
+  qos: 0
+  retain: true  # MQTT Sensors
+  friendly_name: "switch sejour"
+
+- platform: mqtt
+  name: "switch_flottant"
+  state_topic: "switches/WEMOS_15/status"
+  command_topic: "switches/WEMOS_15/command"
+  payload_on: "1"
+  payload_off: "0"
+  qos: 0
+  retain: true  # MQTT Sensors
+  friendly_name: "switch flottant"
