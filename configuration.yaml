@@ -1,0 +1,226 @@
+
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  #### Initial location values for latitude, logitude, elevation, usint_system, and time_zone are calculated from the IP address used when installation occured.  
+  #### Easiest place to get precice info is - http://www.gps-coordinates.net/
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 30
+  # metric for Metric, imperial for Imperial
+  unit_system: Metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Paris 
+
+  customize: !include customize.yaml
+
+
+# Show links to resources in log and frontend
+#### This will be removed once you are comfortable with the front end.  It includes links back to home-assistant.io for help topics.
+introduction:
+
+# Enables the frontend
+#### 99% chance you will never need to disable this.
+#### There are no configuration values within the frontend: component 
+
+http:
+  api_password: !secret http_api_password
+  base_url: !secret http_base_url
+
+input_boolean:
+  fake_heater:
+    name: Fake Heater
+    icon: mdi:toggle-switch-off
+    initial: off
+
+climate:
+  # - platform: generic_thermostat
+  #   name: Temperature Flottant
+  #   heater: switch.switch_flottant
+  #   target_sensor: sensor.temperature_flottant
+  #   initial_operation_mode: "off"
+  #   target_temp: 21
+  - platform: generic_thermostat
+    name: Thermostat chambre
+    heater: input_boolean.fake_heater
+    target_sensor: sensor.temperature_chambre
+    initial_operation_mode: "off"
+    target_temp: 21
+  - platform: generic_thermostat
+    name: Thermostat Flottant
+    heater: switch.switch_flottant
+    target_sensor: sensor.temperature_flottant
+    initial_operation_mode: "off"
+    target_temp: 21
+  - platform: generic_thermostat
+    name: Thermostat Salon
+    heater: switch.switch_salon
+    target_sensor: sensor.temperature_salon
+    initial_operation_mode: "off"
+    target_temp: 21
+  - platform: generic_thermostat
+    name: Thermostat Cuisine
+    heater: switch.switch_cuisine
+    target_sensor: sensor.temperature_cuisine
+    initial_operation_mode: "off"
+    target_temp: 21
+  - platform: generic_thermostat
+    name: Thermostat Sejour
+    heater: switch.switch_sejour
+    target_sensor: sensor.temperature_sejour
+    initial_operation_mode: "off"
+    target_temp: 21
+
+
+frontend:
+config:
+cloud:
+  google_actions:
+    filter:
+      include_domains:
+        - sensor
+        - switch
+        - light
+        - climate
+    entity_config:
+      climate.thermostat_chambre:
+        name: Thermostat Chambre
+      climate.thermostat_cuisine:
+        name: Thermostat Cuisine
+      climate.thermostat_sejour:
+        name: Thermostat Sejour
+      climate.thermostat_salon:
+        name: Thermostat Salon
+        room: salon
+      climate.thermostat_flottant:
+        name: Thermostat Flottant
+        room: flottant
+  alexa:
+    filter:
+      include_domains:
+        - switch
+        - light
+        - climate
+        - sensor
+    # entity_config:
+    #   light.lamp_cuisine:
+    #     name: Lampe cuisine
+    #     display_categories: LIGHT
+    #   switch.switch_cuisine:
+    #     name: Relais cuisine
+    #     display_categories: SWITCH
+    #   sensor.temperature_chambre:
+    #     name: Temperature Chambre
+    #     display_categories: TEMPERATURE_SENSOR
+    #   sensor.temperature_cuisine:
+    #     name: Temperature Cuisine
+    #     display_categories: TEMPERATURE_SENSOR
+    #   climate.temperature_sejour:
+    #     name: Thermostat Sejour
+    #     display_categories: THERMOSTAT
+    #   climate.temperature_salon:
+    #     name: Thermostat Salon
+    #     display_categories: THERMOSTAT
+    #   climate.temperature_flottant:
+    #     name: Thermostat Flottant
+
+alexa:
+  flash_briefings:
+    whoishome:
+        title: Who's at home?
+        text: >
+          {%- if is_state('device_tracker.paulus', 'home') and
+                 is_state('device_tracker.anne_therese', 'home') -%}
+            You are both home, you silly
+          {%- else -%}
+            Anne Therese is at {{ states("device_tracker.anne_therese") }}
+            and Paulus is at {{ states("device_tracker.paulus") }}
+          {% endif %}
+
+intent_script: !include alexa_intent_script.yaml
+  #intents:
+  # OCTOPRINT STATUS
+recorder:
+  purge_keep_days: 1
+#http:
+  # Uncomment this to add a password (recommended!)
+  #### This component controls which port Home Assistant run on, SSL configuration, and other tpc/ip and web server configurations.  We will walk through this in future videos.
+  #### Component definition https://home-assistant.io/components/http/
+  # api_password: PASSWORD
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+#### This component will try to automatically add 11 different uPnP devices.  This includes Chromecast, Wemo Switches, Hue Lights, Netgear routers, Plex, Viera, Roku, Sonos, Yamaha media player, Squeezebox, DirectTV
+#### I have found this to work about 75% of the time, also this can be slow.  I recommend adding the components manually (We will add Sonos, Philips Hue in the next walk-through)
+#discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+#conversation:
+
+# Enables support for tracking state changes over time.
+#### this is great for seeing usage overtime, and understanding when things might not be working exactly the way you want them to
+##   If you are having resource issues and do not use this function, it is safe to disable.
+history:
+
+
+# View all events in a logbook
+#### this is great for seeing usage overtime, and understanding when things might not be working exactly the way you want them to.  Similar in a way to history
+logbook:
+
+# Weather Prediction
+####  This is the default weather sensor.  It gets it's data from the Norwegian Meteorological Institute.  It is a good demo, but we will change to Weather Underground in the next walk-through
+####  The sensor component can show more than weather, it shows state information (such as temprature) from other entities.  We will walk through entities in the next walk-throughs
+#-------------------------------------------------------------
+sun:
+ platform: yr
+#-------------------------------------------------------------
+
+logger:
+  default: debug
+  logs:
+    homeassistant.components.camera: info
+
+#camera:
+ # - platform: ffmpeg 
+ #   input: http://192.168.1.70:8090
+ ####- platform: mjpeg 
+ ####  mjpeg_url: http://192.168.1.41/img/video.mjpeg
+ # - platform: generic 
+ #   still_image_url: http://192.168.1.41/img/snapshot.cgi
+
+# IFTTT Key
+##################ifttt:
+#  key: !secret ifttt_api
+
+
+# tts:
+#   - platform: google
+#default_view:
+#    view: yes
+#    icon: mdi:home 
+#    entities:
+#      - device_tracker.leprogr_z00a
+#      - group.cuisine_entities
+ffmpeg:
+  ffmpeg_bin: /usr/bin/ffmpeg
+
+mqtt: 
+  broker: !secret mqtt_broker     #si le Broker est installé sur le même poste qu'Home-Assistant 
+  port: !secret mqtt_port                        #par défaut 
+  client_id: home-assistant-1 
+  keepalive: 60 
+  username: !secret mqtt_username 
+  password: !secret mqtt_password 
+  protocol: 3.1                     #par défaut
+
+group: !include groups.yaml
+#automation: !include automations.yaml
+sensor: !include sensors.yaml
+switch: !include switches.yaml
+light: !include lights.yaml
+
+ 
