@@ -1,21 +1,62 @@
+# capteur_temperature_humidite:
+#  speech:
+#   type: plain
+#   text: 'La temperature dans {{room}} est {{ states("sensor.temperature_chambre") }} degrés'
+
+# Temperature:
+#  speech:
+#   type: plain
+#   text: 'La temperature est {{ states("sensor.temperature_chambre") }}'
+# GetTemperature:
+#  speech:
+#   type: plain
+#   text: 'La temperature est {{ states("sensor.speedtest_ping")  }}'
+
+# Ca_va:
+#  speech:
+#   type: plain
+#   text: '{{ Script | replace(" ", "_") }} - executed'
+
 capteur_temperature_humidite:
- speech:
-  type: plain
-  text: 'La temperature dans {{room}} est {{ states("sensor.temperature_chambre") }} degrés'
+  speech:
+    type: plain
+    text: >
+      {%- if room.lower() == 'la chambre' -%} 
+        La temperature dans la chambre est de {{ states("sensor.temperature_chambre") }} degrés
+        et le taux d humidité de {{ states("sensor.humidity_chambre") }} pour cents.
+      {%- elif room.lower() == 'le séjour' -%}
+        La temperature dans le séjour est de {{ states("sensor.temperature_sejour") }} degrés
+        et le taux d humidité de {{ states("sensor.humidity_sejour") }} pour cents.
+      {%- elif room.lower() == 'le salon' -%}
+        La temperature dans le salon est de {{ states("sensor.temperature_salon") }} degrés
+        et le taux d humidité de {{ states("sensor.humidity_salon") }} pour cents.
+      {%- elif room.lower() == 'flottant' -%}
+        La temperature flottante est de {{ states("sensor.temperature_flottant") }} degrés
+        et le taux d humidité de {{ states("sensor.humidity_sejour") }} pour cents.
+      {%- elif room.lower() == 'la cuisine' -%}
+        La temperature dans la cuisine est de {{ states("sensor.temperature_cuisine") }} degrés
+        et le taux d humidité de {{ states("sensor.humidity_cuisine") }} pour cents.
+      {% else %}
+          erreur sebastien
+      {%- endif -%}  
+  card:
+    type: simple
+    title: Ma Maison
+    content: Chambre - {{ states("sensor.temperature_chambre") }}°/{{ states("sensor.humidity_chambre") }}%
+        \nSéjour - {{ states("sensor.temperature_sejour") }}°/{{ states("sensor.humidity_sejour") }}%
+        \nSalon - {{ states("sensor.temperature_salon") }}°/{{ states("sensor.humidity_salon") }}%
+        \nCuisine - {{ states("sensor.temperature_cuisine") }}°/{{ states("sensor.humidity_cuisine") }}%
+        \nFlottant - {{ states("sensor.temperature_flottant") }}°/{{ states("sensor.humidity_flottant") }}%
 
-Temperature:
- speech:
-  type: plain
-  text: 'La temperature est {{ states("sensor.temperature_chambre") }}'
-GetTemperature:
- speech:
-  type: plain
-  text: 'La temperature est {{ states("sensor.speedtest_ping")  }}'
+lampe:
+  speech:
+    type: plain
+    text: Ok, j allume la lampe dans le salon
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.lamp_salon
 
-Ca_va:
- speech:
-  type: plain
-  text: '{{ Script | replace(" ", "_") }} - executed'
 
 LocateIntent:
  speech:
